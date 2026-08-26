@@ -2,7 +2,7 @@ using './main.bicep'
 
 // General Parameters
 param parLocations = [
-  '<region-1>'
+  'swedencentral'
   '<region-2>'
 ]
 param parTags = {}
