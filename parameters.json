@@ -6,8 +6,8 @@
   "INTERMEDIATE_ROOT_MANAGEMENT_GROUP_ID": "alz",
   "SUBSCRIPTION_ID_MANAGEMENT": "3311a1e9-7a9d-4815-a1a1-29e9046e6740",
   "NETWORK_TYPE": "hubNetworking",
-  "LOCATION": "<region-1>",
-  "LOCATION_PRIMARY": "<region-1>",
+  "LOCATION": "swedencentral",
+  "LOCATION_PRIMARY": "swedencentral",
   "MANAGEMENT_GROUP_ID": "",
   "LOCATION_SECONDARY": "<region-2>",
   "SUBSCRIPTION_ID_SECURITY": "f587fa9e-791e-4ce6-8ac6-b27ef7bf6804"
