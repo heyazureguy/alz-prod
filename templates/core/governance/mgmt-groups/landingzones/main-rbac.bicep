@@ -94,43 +94,43 @@ var policyAssignmentsRequiringCrossMgRbac = {
 //================================
 
 // Get reference to each policy assignment in Platform MG to extract managed identity principal IDs
-resource policyAssignmentVmChangeTrack 'Microsoft.Authorization/policyAssignments@2024-04-01' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-VM-ChangeTrack')) {
+resource policyAssignmentVmChangeTrack 'Microsoft.Authorization/policyAssignments@2026-01-01-preview' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-VM-ChangeTrack')) {
   name: 'Deploy-VM-ChangeTrack'
   scope: managementGroup(parPlatformManagementGroupName)
 }
 
-resource policyAssignmentVmMonitoring 'Microsoft.Authorization/policyAssignments@2024-04-01' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-VM-Monitoring')) {
+resource policyAssignmentVmMonitoring 'Microsoft.Authorization/policyAssignments@2026-01-01-preview' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-VM-Monitoring')) {
   name: 'Deploy-VM-Monitoring'
   scope: managementGroup(parPlatformManagementGroupName)
 }
 
-resource policyAssignmentVmArcChangeTrack 'Microsoft.Authorization/policyAssignments@2024-04-01' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-vmArc-ChangeTrack')) {
+resource policyAssignmentVmArcChangeTrack 'Microsoft.Authorization/policyAssignments@2026-01-01-preview' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-vmArc-ChangeTrack')) {
   name: 'Deploy-vmArc-ChangeTrack'
   scope: managementGroup(parPlatformManagementGroupName)
 }
 
-resource policyAssignmentVmssChangeTrack 'Microsoft.Authorization/policyAssignments@2024-04-01' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-VMSS-ChangeTrack')) {
+resource policyAssignmentVmssChangeTrack 'Microsoft.Authorization/policyAssignments@2026-01-01-preview' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-VMSS-ChangeTrack')) {
   name: 'Deploy-VMSS-ChangeTrack'
   scope: managementGroup(parPlatformManagementGroupName)
 }
 
-resource policyAssignmentVmHybrMonitoring 'Microsoft.Authorization/policyAssignments@2024-04-01' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-vmHybr-Monitoring')) {
+resource policyAssignmentVmHybrMonitoring 'Microsoft.Authorization/policyAssignments@2026-01-01-preview' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-vmHybr-Monitoring')) {
   name: 'Deploy-vmHybr-Monitoring'
   scope: managementGroup(parPlatformManagementGroupName)
 }
 
-resource policyAssignmentVmssMonitoring 'Microsoft.Authorization/policyAssignments@2024-04-01' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-VMSS-Monitoring')) {
+resource policyAssignmentVmssMonitoring 'Microsoft.Authorization/policyAssignments@2026-01-01-preview' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-VMSS-Monitoring')) {
   name: 'Deploy-VMSS-Monitoring'
   scope: managementGroup(parPlatformManagementGroupName)
 }
 
-resource policyAssignmentMdfcDefSqlAma 'Microsoft.Authorization/policyAssignments@2024-04-01' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-MDFC-DefSQL-AMA')) {
+resource policyAssignmentMdfcDefSqlAma 'Microsoft.Authorization/policyAssignments@2026-01-01-preview' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Deploy-MDFC-DefSQL-AMA')) {
   name: 'Deploy-MDFC-DefSQL-AMA'
   scope: managementGroup(parPlatformManagementGroupName)
 }
 
 // Get reference to Enable-DDoS-VNET policy assignment in Connectivity MG
-resource policyAssignmentEnableDdosVnet 'Microsoft.Authorization/policyAssignments@2024-04-01' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Enable-DDoS-VNET')) {
+resource policyAssignmentEnableDdosVnet 'Microsoft.Authorization/policyAssignments@2026-01-01-preview' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Enable-DDoS-VNET')) {
   name: 'Enable-DDoS-VNET'
   scope: managementGroup(parConnectivityManagementGroupName)
 }

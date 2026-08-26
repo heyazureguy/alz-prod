@@ -3,7 +3,6 @@ using './main.bicep'
 // General Parameters
 param parLocations = [
   '<region-1>'
-  '<region-2>'
 ]
 param parEnableTelemetry = true
 
@@ -14,7 +13,7 @@ param landingZonesConfig = {
   managementGroupIntermediateRootName: 'alz'
   managementGroupDisplayName: 'Landing Zones'
   managementGroupDoNotEnforcePolicyAssignments: []
-  managementGroupExcludedPolicyAssignments: []
+  managementGroupExcludedPolicyAssignments: ['Enable-DDoS-VNET']
   customerRbacRoleDefs: []
   customerRbacRoleAssignments: []
   customerPolicyDefs: []
@@ -31,13 +30,6 @@ param landingZonesConfig = {
 
 // Only specify the parameters you want to override - others will use defaults from JSON files
 param parPolicyAssignmentParameterOverrides = {
-  'Enable-DDoS-VNET': {
-    parameters: {
-      ddosPlan: {
-        value: '/subscriptions/e820db99-d727-45f8-9fdb-df364e8ac3ca/resourceGroups/rg-alz-conn-${parLocations[0]}/providers/Microsoft.Network/ddosProtectionPlans/ddos-alz-${parLocations[0]}'
-      }
-    }
-  }
   'Deploy-AzSqlDb-Auditing': {
     parameters: {
       logAnalyticsWorkspaceId: {

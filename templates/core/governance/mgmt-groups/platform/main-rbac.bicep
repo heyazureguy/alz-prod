@@ -39,7 +39,7 @@ var policyAssignmentsRequiringCrossMgRbac = {
 //================================
 
 // Get reference to Enable-DDoS-VNET policy assignment in Connectivity MG
-resource policyAssignmentEnableDdosVnet 'Microsoft.Authorization/policyAssignments@2024-04-01' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Enable-DDoS-VNET')) {
+resource policyAssignmentEnableDdosVnet 'Microsoft.Authorization/policyAssignments@2026-01-01-preview' existing = if (!contains(parManagementGroupExcludedPolicyAssignments, 'Enable-DDoS-VNET')) {
   name: 'Enable-DDoS-VNET'
   scope: managementGroup(parConnectivityManagementGroupName)
 }

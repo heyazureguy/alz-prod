@@ -3,7 +3,6 @@ using './main.bicep'
 // General Parameters
 param parLocations = [
   '<region-1>'
-  '<region-2>'
 ]
 param parEnableTelemetry = true
 
@@ -36,7 +35,7 @@ param parPolicyAssignmentParameterOverrides = {
         value: '/subscriptions/3311a1e9-7a9d-4815-a1a1-29e9046e6740/resourcegroups/rg-alz-logging-${parLocations[0]}/providers/Microsoft.OperationalInsights/workspaces/law-alz-${parLocations[0]}'
       }
       emailSecurityContact: {
-        value: 'security@yourcompany.com'
+        value: 'daniel.etten@microsoft.com'
       }
       ascExportResourceGroupName: {
         value: 'rg-alz-asc-${parLocations[0]}'
