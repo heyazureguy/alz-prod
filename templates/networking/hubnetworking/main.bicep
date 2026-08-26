@@ -88,7 +88,7 @@ var hubBastionRecommendedZones = [
   for hub in hubNetworks: map(pickZones('Microsoft.Network', 'bastionHosts', hub.location, 3), zone => int(zone))
 ]
 var expressRouteGatewaySkuMap = {
-  zonal: 'ErGw1AZ'
+  zonal: 'ErGw2AZ'
   nonZonal: 'Standard'
 }
 var hubExpressRouteGatewayRecommendedSku = [
@@ -117,7 +117,7 @@ var dnsResolverInboundIpAddresses = [
 // Resources Groups
 //========================================
 
-module modHubNetworkingResourceGroups 'br/public:avm/res/resources/resource-group:0.4.3' = [
+module modHubNetworkingResourceGroups 'br/public:avm/res/resources/resource-group:0.4.4' = [
   for (hub, i) in hubNetworks: {
     name: 'modHubResourceGroup-${i}-${uniqueString(parHubNetworkingResourceGroupNamePrefix, hub.location)}'
     scope: subscription()
@@ -131,7 +131,7 @@ module modHubNetworkingResourceGroups 'br/public:avm/res/resources/resource-grou
   }
 ]
 
-module modDnsResourceGroups 'br/public:avm/res/resources/resource-group:0.4.3' = [
+module modDnsResourceGroups 'br/public:avm/res/resources/resource-group:0.4.4' = [
   for (hub, i) in hubNetworks: if (hub.privateDnsSettings.deployPrivateDnsZones) {
     name: 'modDnsResourceGroup-${i}-${uniqueString(parDnsResourceGroupNamePrefix, hub.location)}'
     scope: subscription()
@@ -145,7 +145,7 @@ module modDnsResourceGroups 'br/public:avm/res/resources/resource-group:0.4.3' =
   }
 ]
 
-module modPrivateDnsResolverResourceGroups 'br/public:avm/res/resources/resource-group:0.4.3' = [
+module modPrivateDnsResolverResourceGroups 'br/public:avm/res/resources/resource-group:0.4.4' = [
   for (hub, i) in hubNetworks: if (hub.privateDnsSettings.deployDnsPrivateResolver) {
     name: 'modPrivateDnsResolverResourceGroup-${i}-${uniqueString(parDnsPrivateResolverResourceGroupNamePrefix, hub.location)}'
     scope: subscription()
@@ -162,7 +162,7 @@ module modPrivateDnsResolverResourceGroups 'br/public:avm/res/resources/resource
 //=====================
 // Virtual Networks
 //=====================
-module resHubVirtualNetwork 'br/public:avm/res/network/virtual-network:0.7.2' = [
+module resHubVirtualNetwork 'br/public:avm/res/network/virtual-network:0.10.2' = [
   for (hub, i) in hubNetworks: {
     name: 'vnet-${hub.name}-${uniqueString(parHubNetworkingResourceGroupNamePrefix, hub.location)}'
     scope: resourceGroup(hubResourceGroupNames[i])
@@ -207,7 +207,7 @@ module resHubVirtualNetwork 'br/public:avm/res/network/virtual-network:0.7.2' = 
 // Azure Firewall
 //=====================
 
-module resAzureFirewall 'br/public:avm/res/network/azure-firewall:0.9.2' = [
+module resAzureFirewall 'br/public:avm/res/network/azure-firewall:0.11.1' = [
   for (hub, i) in hubNetworks: if (hub.azureFirewallSettings.deployAzureFirewall) {
     name: 'afw-${hub.name}-${uniqueString(parHubNetworkingResourceGroupNamePrefix, hub.location)}'
     scope: resourceGroup(hubResourceGroupNames[i])
@@ -277,7 +277,7 @@ module resBastion 'br/public:avm/res/network/bastion-host:0.8.2' = [
 // VNet Peerings
 //=====================
 
-module resVnetPeering 'br/public:avm/res/network/virtual-network:0.7.2' = [
+module resVnetPeering 'br/public:avm/res/network/virtual-network:0.10.2' = [
   for (hub, i) in hubNetworks: if (hub.deployPeering && !empty(hub.?peeringSettings ?? [])) {
     name: 'peering-${hub.name}-${uniqueString(parHubNetworkingResourceGroupNamePrefix, hub.location)}'
     scope: resourceGroup(hubResourceGroupNames[i])
@@ -399,7 +399,7 @@ module resDdosProtectionPlan 'br/public:avm/res/network/ddos-protection-plan:0.3
   }
 ]
 
-module resFirewallPolicy 'br/public:avm/res/network/firewall-policy:0.3.4' = [
+module resFirewallPolicy 'br/public:avm/res/network/firewall-policy:0.3.6' = [
   for (hub, i) in hubNetworks: if (hub.azureFirewallSettings.deployAzureFirewall && empty(hub.?azureFirewallSettings.?firewallPolicyId)) {
     name: 'firewallPolicy-${uniqueString(parHubNetworkingResourceGroupNamePrefix,hub.name,hub.location)}'
     scope: resourceGroup(hubResourceGroupNames[i])
@@ -430,7 +430,7 @@ module resFirewallPolicy 'br/public:avm/res/network/firewall-policy:0.3.4' = [
   }
 ]
 
-module resBastionNsg 'br/public:avm/res/network/network-security-group:0.5.2' = [
+module resBastionNsg 'br/public:avm/res/network/network-security-group:0.5.3' = [
   for (hub, i) in hubNetworks: if (hub.bastionHostSettings.deployBastion) {
     name: '${hub.name}-bastionNsg-${uniqueString(parHubNetworkingResourceGroupNamePrefix,hub.location)}'
     scope: resourceGroup(hubResourceGroupNames[i])
@@ -593,7 +593,7 @@ module resBastionNsg 'br/public:avm/res/network/network-security-group:0.5.2' = 
 //=====================
 // Hybrid Connectivity
 //=====================
-module resVpnGateway 'br/public:avm/res/network/virtual-network-gateway:0.10.1' = [
+module resVpnGateway 'br/public:avm/res/network/virtual-network-gateway:0.12.0' = [
   for (hub, i) in hubNetworks: if (hub.vpnGatewaySettings.deployVpnGateway) {
     name: 'vpnGateway-${uniqueString(parHubNetworkingResourceGroupNamePrefix,hub.name,hub.location)}'
     scope: resourceGroup(hubResourceGroupNames[i])
@@ -633,7 +633,7 @@ module resVpnGateway 'br/public:avm/res/network/virtual-network-gateway:0.10.1' 
   }
 ]
 
-module resExpressRouteGateway 'br/public:avm/res/network/virtual-network-gateway:0.10.1' = [
+module resExpressRouteGateway 'br/public:avm/res/network/virtual-network-gateway:0.12.0' = [
   for (hub, i) in hubNetworks: if (hub.?expressRouteGatewaySettings.?deployExpressRouteGateway ?? false) {
     name: 'expressRouteGateway-${uniqueString(parHubNetworkingResourceGroupNamePrefix,hub.name,hub.location)}'
     scope: resourceGroup(hubResourceGroupNames[i])
@@ -663,7 +663,7 @@ module resExpressRouteGateway 'br/public:avm/res/network/virtual-network-gateway
 // =====================
 // DNS
 // =====================
-module resPrivateDnsZones 'br/public:avm/ptn/network/private-link-private-dns-zones:0.7.2' = [
+module resPrivateDnsZones 'br/public:avm/ptn/network/private-link-private-dns-zones:0.7.3' = [
   for (hub, i) in hubNetworks: if (hub.privateDnsSettings.deployPrivateDnsZones) {
     name: 'privateDnsZone-${hub.name}-${uniqueString(parDnsResourceGroupNamePrefix,hub.location)}'
     scope: resourceGroup(dnsResourceGroupNames[i])
@@ -703,7 +703,7 @@ module resPrivateDnsZones 'br/public:avm/ptn/network/private-link-private-dns-zo
   }
 ]
 
-module resDnsPrivateResolver 'br/public:avm/res/network/dns-resolver:0.5.6' = [
+module resDnsPrivateResolver 'br/public:avm/res/network/dns-resolver:0.5.8' = [
   for (hub, i) in hubNetworks: if (hub.privateDnsSettings.deployDnsPrivateResolver) {
     name: 'dnsResolver-${hub.name}-${uniqueString(parDnsPrivateResolverResourceGroupNamePrefix,hub.location)}'
     scope: resourceGroup(dnsPrivateResolverResourceGroupNames[i])
